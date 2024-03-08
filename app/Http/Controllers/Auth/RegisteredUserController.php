@@ -80,7 +80,7 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-        
+
         return view('auth.login');
 
     }
@@ -103,8 +103,9 @@ class RegisteredUserController extends Controller
         $event = $request->input('event');
         // Query events with the specified category and eager load related models
         $events = Event::with('category', 'organisateur.user')
-                                ->where('title', $event)
-                                ->paginate(9);
+        ->where('title', 'like', '%' . $event . '%')
+        ->paginate(9);
+
 
         $categories = Category::get();
 

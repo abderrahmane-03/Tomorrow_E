@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('picture');
             $table->text('description');
+            $table->string('barCode');
             $table->string('place');
             $table->dateTime('Date');
             $table->string('location');

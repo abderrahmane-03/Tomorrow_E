@@ -1,16 +1,10 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
 </x-app-layout>
 <div class="flex justify-between">
     <form class="ml-10" action="{{ route('event-filtre') }}" method="post">
         @csrf
-        <select id="categories" class="mt-5 inline-flex bg-violet-200 border border-gray-300 text-violet-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-60 p-2.5">
-            <option selected>Choose a Category</option>
+        <select id="category" name="category" class="mt-5 inline-flex bg-violet-200 border border-gray-300 text-violet-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-60 p-2.5">
+            <option>Choose a Category</option>
             @foreach ($categories as $categorie)
             <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
             @endforeach
@@ -40,14 +34,15 @@
 
     <div class="relative mt-6 mx-6 w-96">
         <a href="#" class="relative inline-block duration-300 ease-in-out transition-transform transform hover:translate-y-0.5 w-full">
-            <div class="shadow p-4 rounded-lg bg-white">
+            <div class="shadow p-4 rounded-lg bg-pink">
                 <!-- Insert the span element here -->
                 <span class="absolute top-0 left-0 inline-flex mt-3 ml-3 px-3 py-2 rounded-lg z-10 bg-red-500 text-sm font-medium text-white select-none">Featured</span>
 
                 <div class="flex justify-center relative rounded-lg overflow-hidden h-52">
                     <div class="transition-transform duration-500 transform ease-in-out hover:scale-110 w-full">
-                        <div class="absolute inset-0 bg-black opacity-10"></div>
+                        <div class="absolute inset-0 bg-black opacity-90 hover:opacity-100"><img src="/{{$event->picture}}"  alt="" srcset="" /></div>
                     </div>
+
 
                     <div class="absolute flex justify-center bottom-0 mb-3">
                         <div class="flex bg-white px-4 py-1 space-x-5 rounded-lg overflow-hidden shadow">
