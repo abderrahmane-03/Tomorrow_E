@@ -1,12 +1,14 @@
 <?php
 
 use App\Models\Event;
+use App\Models\Ticket;
 use App\Models\Category;
+use App\Models\Reservation;
 use App\Models\organisateur;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,11 +48,10 @@ Route::middleware('Admin')->group(function () {
    Route::middleware('organisateur')->group(function () {
 });
 Route::middleware('role:participateur')->group(function () {
-    Route::get('/participateur/reservations', function () {
-        $events = Event::with('category', 'organisateur.user')->paginate(9);
-        $categories = Category::get();
-        return view('resservations', compact('events', 'categories'));
-    })->name('reservation');
+    Route::get('/participateur/tickets', function () {
+        $tickets = Ticket::get();
+        return view('ticket', compact('tickets'));
+    })->name('tickets');
     Route::get('/participateur', function () {
         $events = Event::with('category', 'organisateur.user')->paginate(9);
         $categories = Category::get();

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->dateTime('date');
             $table->integer('places_available');
             $table->string('location');
+            $table->string('picture');
             $table->string('type_of_reservation');
             $table->timestamps();
         });

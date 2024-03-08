@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     use HasFactory;
+    protected $guarded=[];
     public function reservation()
     {
         return $this->belongsto(Reservation::class, 'reservation_id');

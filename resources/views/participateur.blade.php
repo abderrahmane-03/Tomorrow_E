@@ -19,7 +19,9 @@
                 <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M18.8 4H5.2a1 1 0 0 0-.7 1.7l5.3 6 .2.7v4.8c0 .2 0 .4.2.4l3 2.3c.3.2.8 0 .8-.4v-7.1c0-.3 0-.5.2-.7l5.3-6a1 1 0 0 0-.7-1.7Z" />
             </svg>Filter</button>
     </form>
-<a href="{{route('reservations')}}">my reservations</a>
+<a class="mt-5 inline-flex bg-amber-200 border border-gray-300 text-red-500 font-bold text-sm rounded-lg w-60 p-2.5" href="{{route('tickets')}}"><svg class="w-5 h-5 mr-2 text-red-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.5 12A2.5 2.5 0 0 1 21 9.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v2.5a2.5 2.5 0 0 1 0 5V17a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-2.5a2.5 2.5 0 0 1-2.5-2.5Z" />
+                                </svg>My tickets</a>
     <form class="mr-10" action="{{ route('event-search') }}" method="post">
         @csrf
         <input placeholder="Search somthing..." class="mt-5 inline-flex bg-violet-200 border border-gray-300 text-violet-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-60 p-2.5" type="search" name="event" id="event">
@@ -36,8 +38,8 @@
 
     @foreach ($events as $event)
 
-    <div class="relative mx-6 w-96">
-        <a href="#" class="relative inline-block duration-300 ease-in-out transition-transform transform hover:-translate-y-2 w-full">
+    <div class="relative mt-6 mx-6 w-96">
+        <a href="#" class="relative inline-block duration-300 ease-in-out transition-transform transform hover:translate-y-0.5 w-full">
             <div class="shadow p-4 rounded-lg bg-white">
                 <!-- Insert the span element here -->
                 <span class="absolute top-0 left-0 inline-flex mt-3 ml-3 px-3 py-2 rounded-lg z-10 bg-red-500 text-sm font-medium text-white select-none">Featured</span>
@@ -144,7 +146,7 @@
                     @endif
 
                     @if ($event->places_available === 0)
-                    <div class="inline-flex items-center bg-red-100 px-6 py-2 rounded-lg text-red-300 font-semibold text-sm transition duration-300 ease-in-out transform hover:translate-y-0.5">
+                    <div class="inline-flex items-center bg-red-100 px-6 py-2 rounded-lg text-red-300 font-semibold text-sm transition duration-300 ease-in-out transform ">
                         Sold out
                     </div>
                     @endif

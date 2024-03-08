@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("reservation_id")->constrained('reservations')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name');
+            $table->string('picture');
             $table->text('description');
             $table->string('place');
             $table->dateTime('Date');
