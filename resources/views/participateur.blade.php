@@ -15,7 +15,7 @@
     </form>
     <a class=" relative mt-5 inline-flex bg-amber-200 border border-gray-300 text-red-500 font-bold text-sm rounded-lg w-60 p-2.5" href="{{route('tickets')}}"><svg class="w-5 h-5 mr-2 text-red-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.5 12A2.5 2.5 0 0 1 21 9.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v2.5a2.5 2.5 0 0 1 0 5V17a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-2.5a2.5 2.5 0 0 1-2.5-2.5Z" />
-        </svg> <div class="absolute bottom-4 left-52 inline-flex mt-3 ml-3 px-3 py-2 rounded-lg z-10 bg-red-300 text-sm font-medium text-red-500 select-none">{{count($tickets)}}</div>
+        </svg> <div class="absolute bottom-4 left-52 inline-flex mt-3 ml-3 px-3 py-1 rounded-2xl z-10 bg-red-300 text-sm font-medium text-red-500 select-none">{{count($tickets)}}</div>
     My tickets</a>
        <form class="mr-10" action="{{ route('event-search') }}" method="post">
         @csrf

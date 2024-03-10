@@ -5,8 +5,8 @@
     <div class="flex"><button onclick="showform()" class=" ml-44 mt-4 bg-violet-200  px-6 py-2 rounded-lg text-violet-500 font-semibold text-sm transition duration-300 ease-in-out transform hover:translate-y-0.5">
             Add a New Event
         </button>
-        <a href="{{route("reservations")}}" class="ml-44 mt-4 bg-blue-300  px-6 py-2 rounded-lg text-blue-500 font-semibold text-sm transition duration-300 ease-in-out transform hover:translate-y-0.5">
-            Pending Reservations
+        <a href="{{route("reservations")}}" class="ml-72 mt-4 bg-blue-300  px-6 py-2 rounded-lg text-blue-500 font-semibold text-sm transition duration-300 ease-in-out transform hover:translate-y-0.5">
+        <div class="absolute bottom-4 left-40 inline-flex mt-3 ml-3 px-3 py-1 rounded-2xl z-10 bg-orange-300 text-sm font-medium text-orange-500 select-none">{{count($pendingreservations)}}</div>Pending Reservations
         </a>
     </div>
 
@@ -62,9 +62,7 @@
 
                     <!-- Grid for property details -->
                     <div class="grid grid-cols-2 grid-rows-2 gap-4 mt-8">
-                        <!-- Each property detail is wrapped in a paragraph tag -->
-                        <!-- Icon and text for property type -->
-                        <p class="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
+                       <p class="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
                             <svg class="w-5 h-5 mr-2 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11H4m15.5 5c.3 0 .5-.2.5-.5V8c0-.6-.4-1-1-1h-3.8a1 1 0 0 1-.8-.4L13 4.4a1 1 0 0 0-.8-.4H8a1 1 0 0 0-1 1M4 9v10c0 .6.4 1 1 1h11c.6 0 1-.4 1-1v-7c0-.6-.4-1-1-1h-3.8a1 1 0 0 1-.8-.4L10 8.4a1 1 0 0 0-.8-.4H5a1 1 0 0 0-1 1Z" />
                             </svg>
@@ -107,7 +105,21 @@
                         <button onclick="UpdateForm()" class="inline-flex items-center bg-yellow-300 px-6 py-2 rounded-lg text-yellow-600 font-semibold text-sm transition duration-300 ease-in-out transform hover:translate-y-0.5">
                             Update
                         </button>
-
+                        @if ($event->accepted ==="online")
+                        <div class="inline-flex items-center bg-green-300 px-6 py-2 rounded-lg text-green-600 font-semibold text-sm transition duration-300 ease-in-out transform hover:translate-y-0.5">
+                                                    {{$event->accepted}}
+                                                </div>
+                        @endif
+                        @if ($event->accepted ==="rejected")
+                        <div class="inline-flex items-center bg-red-300 px-6 py-2 rounded-lg text-red-600 font-semibold text-sm transition duration-300 ease-in-out transform hover:translate-y-0.5">
+                                                    {{$event->accepted}}
+                                                </div>
+                        @endif
+                        @if ($event->accepted ==="pending")
+                        <div class="inline-flex items-center bg-orange-300 px-6 py-2 rounded-lg text-orange-600 font-semibold text-sm transition duration-300 ease-in-out transform hover:translate-y-0.5">
+                                                    {{$event->accepted}}
+                                                </div>
+                        @endif
 
 
                     </div>

@@ -63,11 +63,12 @@ Route::middleware('role:organisateur')->group(function () {
         $organizer = organisateur::where('user_id', Auth::id())->first(); // Get the authenticated participant
         $categories = Category::get();
         $events = Event::where('organisateur_id', $organizer->id)->paginate(9);
+        $pendingreservations=Reservation::where("status", "pending")->get();
         $reservations = [];
         foreach ($events as $event) {
             $reservations[$event->id] = Reservation::where('event_id', $event->id)->get();
         }
-        return view('organisateur', compact('events', 'reservations', 'organizer', 'categories'));
+        return view('organisateur', compact('events', 'pendingreservations','reservations', 'organizer', 'categories'));
     })->name('organisateur');
 });
 Route::middleware('role:participateur')->group(function () {
@@ -79,7 +80,7 @@ Route::middleware('role:participateur')->group(function () {
 
     Route::get('/participateur', function () {
         $tickets = Ticket::get();
-        $events = Event::with('category', 'organisateur.user')->paginate(9);
+        $events = Event::with('category', 'organisateur.user')->where("accepted","online")->paginate(9);
         $reservations = [];
         foreach ($events as $event) {
             $reservations[$event->id] = Reservation::where('event_id', $event->id)->get();
