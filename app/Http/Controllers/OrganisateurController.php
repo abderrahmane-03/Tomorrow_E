@@ -3,11 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Category;
 use App\Models\Reservation;
+use App\Models\Organisateur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrganisateurController extends Controller
 {
+    public function reservations()
+    {
+        $reservations = Reservation::where("status", "pending")->get();
+        return view('reservations', compact('reservations'));
+    }
+    public function index()
+    {
+        $organizer = Organisateur::where('user_id', Auth::id())->first();
+        $categories = Category::get();
+        $events = Event::where('organisateur_id', $organizer->id)->paginate(9);
+        $pendingreservations = Reservation::where("status", "pending")->get();
+        $reservations = [];
+        foreach ($events as $event) {
+            $reservations[$event->id] = Reservation::where('event_id', $event->id)->get();
+        }
+        return view('organisateur', compact('events', 'pendingreservations', 'reservations', 'organizer', 'categories'));
+    }
     public function destroy(Event $event){
 
         $event->delete();

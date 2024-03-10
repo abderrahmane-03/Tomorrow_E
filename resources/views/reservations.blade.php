@@ -1,5 +1,4 @@
 <x-app-layout>
-</x-app-layout>
 <div class="flex-col ml-4"><a class="mt-5 inline-flex bg-blue-200 font-bold text-sm rounded-lg w-10 m-2 px-2.5 py-0.5" href="{{route('organisateur')}}"><svg class="w-6 h-6 text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7"/>
   </svg></a></div>
@@ -71,7 +70,7 @@
                         </span>
                     </p>
                     <!-- Icon and text for property feature -->
-                    
+
                     <!-- Icon and text for property size -->
                     <p class="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
                         <svg class="w-6 h-6 mr-2 text-gray-800 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -128,3 +127,4 @@
     </div>
     @endforeach
 </div>
+</x-app-layout>

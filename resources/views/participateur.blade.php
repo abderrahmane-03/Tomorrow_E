@@ -1,5 +1,5 @@
 <x-app-layout>
-</x-app-layout>
+
 <div class="flex justify-between">
     <form class="ml-10" action="{{ route('event-filtre') }}" method="post">
         @csrf
@@ -152,3 +152,4 @@
 <div class="flex justify-center mt-8">
     {{ $events->links('vendor.pagination.tailwind') }}
 </div>
+</x-app-layout>
