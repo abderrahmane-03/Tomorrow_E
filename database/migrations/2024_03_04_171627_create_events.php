@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('places_available');
             $table->string('location');
             $table->string('picture');
-            $table->string('accepted');
+            $table->string('accepted')->default("pending");
             $table->string('type_of_reservation');
             $table->timestamps();
         });

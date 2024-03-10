@@ -56,7 +56,7 @@ class ReservationController extends Controller
     {
         $participant = Participateur::where('user_id', Auth::id())->first(); // Get the authenticated participant
 
-        $reservation = Reservation::create([
+        Reservation::create([
             'participateur_id' => $participant->id,
             'event_id' => $event->id,
             'status' => 'pending',
@@ -65,12 +65,11 @@ class ReservationController extends Controller
 
         return redirect()->route('participateur')->with('success', 'Reservation is waiting for review!');
     }
-    public function accept_manuelle(Event $event ,Reservation $reservation): RedirectResponse
+    public function accept(Reservation $reservation): RedirectResponse
     {
-     Reservation::edite([
-            'status' => 'accepted',
-        ]);
-        $event->update(['places_available' => $event->places_available - 1]);
+     $reservation->update(['status' => 'accepted']);
+
+        $reservation->event->update(['places_available' => $reservation->event->places_available - 1]);
         $latestReservation = Reservation::latest()->first();
 
                 $randomCode = '';
@@ -83,27 +82,27 @@ class ReservationController extends Controller
 
          $ticket=Ticket::create([
             'reservation_id' => $latestReservation->id,
-            'name' => $event->title,
-            'description' => $event->description,
-            'place'=>$event->places_available + 1,
-            'Date'=>$event->date,
-            'picture'=>$event->picture,
+            'name' => $reservation->event->title,
+            'description' => $reservation->event->description,
+            'place'=>$reservation->event->places_available + 1,
+            'Date'=>$reservation->event->date,
+            'picture'=>$reservation->event->picture,
             'barCode'=>$randomCode,
-            'location'=>$event->location
+            'location'=>$reservation->event->location
         ]);
 
         Mail::to(Auth::user()->email)->send(new TicketInformation($ticket));
 
-        return redirect()->route('organisateur');
+        return redirect()->route('reservations');
     }
-    public function reject_manuelle(Reservation $reservation): RedirectResponse
+    public function reject(Reservation $reservation): RedirectResponse
     {
-     Reservation::edite([
+     $reservation->update([
             'status' => 'rejected',
         ]);
 
 
-        return redirect()->route('organisateur');
+        return redirect()->route('reservations');
     }
 
 

@@ -11,6 +11,7 @@ use Illuminate\Validation\Rules;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\Ticket;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
@@ -87,6 +88,7 @@ class RegisteredUserController extends Controller
 
     public function filter(Request $request)
     {
+        $tickets=Ticket::get();
         $category = $request->input('category');
         // Query events with the specified category and eager load related models
         $events = Event::with('category', 'organisateur.user')
@@ -96,7 +98,7 @@ class RegisteredUserController extends Controller
         $categories = Category::get();
 
         // Pass the filtered data to the view
-        return view('participateur', compact('events', 'categories'));
+        return view('participateur', compact('events', 'categories','tickets'));
     }
     public function search(Request $request)
     {

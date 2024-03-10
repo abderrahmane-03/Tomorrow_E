@@ -1,13 +1,9 @@
 @component('mail::message')
 # Ticket Information
+Thanks for reserving **{{ $ticket->name }}** Event For
+**{{ $ticket->Date }}** Please be there before the event start atleast 30 minutes your seat is NUMBER : {{ $ticket->place }}
+LOCATION: {{ $ticket->location }}
 
-Here is your ticket information:
-
-**Event Name:** {{ $ticket->name }}
-**Date:** {{ $ticket->date }}
-**Seat:** {{ $ticket->place }}
-**Location:** {{ $ticket->location }}
-
-Thanks,<br>
-TOMORROW EVENT
+Thank you,<br>
+TOMORROW EVENT FOR YOU!
 @endcomponent

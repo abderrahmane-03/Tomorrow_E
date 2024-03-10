@@ -15,7 +15,7 @@
     <body class="antialiased bg-black">
     <!--welcome-->
 
-<nav class="flex justify-between bg-black h-[80px] text-white w-[96.55rem]">
+<nav class="flex justify-between bg-black h-[80px] text-white w-[95.5rem]">
 
 <div class="px-5 xl:px-12 py-6 flex w-full items-center ">
     <a class="text-3xl font- flex items-center font-heading h-[60px] w-[170px]" href="#">
