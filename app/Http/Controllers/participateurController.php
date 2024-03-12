@@ -13,7 +13,7 @@ class participateurController extends Controller
      public function index()
     {
         $tickets = Ticket::get();
-        $events = Event::with('category', 'organisateur.user')->where("accepted", "online")->paginate(9);
+        $events = Event::with('category', 'organisateur.user')->where("accepted","accepted")->paginate(9);
         $reservations = [];
         foreach ($events as $event) {
             $reservations[$event->id] = Reservation::where('event_id', $event->id)->get();

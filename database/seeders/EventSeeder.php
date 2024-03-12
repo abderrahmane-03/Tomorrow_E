@@ -17,17 +17,14 @@ class EventSeeder extends Seeder
      */
     public function run()
     {
-        // Use Faker to generate fake data
         $faker = Faker::create();
 
-        // Get category and organisateur IDs
         $categoryIds = Category::pluck('id')->toArray();
         $organisateurIds = Organisateur::pluck('id')->toArray();
 
-        // Insert fake data
-        for ($i = 0; $i < 10; $i++) { // Insert 20 fake events, adjust as needed
+        for ($i = 0; $i < 10; $i++) {
             Event::create([
-                'category_id' => 3,
+                'category_id' => $faker->randomElement($categoryIds),
                 'organisateur_id' => $faker->randomElement($organisateurIds),
                 'title' => $faker->sentence,
                 'description' => $faker->paragraph,

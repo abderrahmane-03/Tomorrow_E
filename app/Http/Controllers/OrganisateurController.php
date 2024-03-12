@@ -71,6 +71,8 @@ class OrganisateurController extends Controller
 
     public function update(Request $request, Event $event)
     {
+        $eventId = $request->input('event_id');
+        $event = Event::findOrFail($eventId);
         // Validate the form data
         $validatedData = $request->validate([
             'title' => 'nullable',

@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('participateurs', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->boolean('banned')->default(false);;
             $table->timestamps();
         });
     }

@@ -10,6 +10,9 @@ use App\Http\Controllers\participateurController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/banned', function () {
+    return view('banned');
+})->name('banned');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
@@ -19,11 +22,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
     Route::middleware('role:admin')->group(function(){
-        Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-        Route::get('/adminstats', function () {
-            return view('adminstats');
-        })->name('adminstats');
+        Route::post('/adminCtegories/store', [AdminController::class, 'store'])->name('Category_store');
+        Route::put('/adminCtegories/update', [AdminController::class, 'update'])->name('Category_update');
+        Route::delete('/adminCtegories/delete/{category}', [AdminController::class, 'delete'])->name('Category_delete');
+        Route::put('/admin/ban/{user}', [AdminController::class, 'ban'])->name('user_ban');
+        Route::put('/admin/unban/{user}', [AdminController::class, 'unban'])->name('user_unban');
+        Route::get('/adminstats', [AdminController::class, 'index'])->name('admin_stats');
+        Route::get('/adminEvents', [AdminController::class, 'Events'])->name('admin_events');
+        Route::get('/adminCtegories', [AdminController::class, 'category'])->name('admin_categories');
+        Route::put('/eventaccept/{event}', [AdminController::class, 'accept'])->name('accept.event');
+        Route::put('/eventreject/{event}', [AdminController::class, 'reject'])->name('reject.event');
+
+
     });
     Route::middleware('role:organisateur')->group(function () {
         Route::post('/organisateur/update/{event}', [OrganisateurController::class, 'update'])->name('organisateur.update');

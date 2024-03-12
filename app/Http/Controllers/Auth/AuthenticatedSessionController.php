@@ -33,6 +33,10 @@ class AuthenticatedSessionController extends Controller
 
         $user = $request->user();
 
+        if ($user->banned===1) {
+            // Redirect the banned user to a specific page
+            return redirect()->route('banned');
+        }
         if ($user->is_organisateur()) {
             Session::put('role', 'organisateur');
             return redirect()->route('organisateur');
@@ -41,7 +45,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('participateur');
         } else if ($user->is_admin()) {
             Session::put('role', 'admin');
-            return redirect()->intended('admin');
+            return redirect()->intended('adminstats');
         }
 
 

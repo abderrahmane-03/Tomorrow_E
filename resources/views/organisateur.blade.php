@@ -6,13 +6,72 @@
             Add a New Event
         </button>
         <a href="{{route("reservations")}}" class="ml-72 mt-4 bg-blue-300  px-6 py-2 rounded-lg text-blue-500 font-semibold text-sm transition duration-300 ease-in-out transform hover:translate-y-0.5">
-        <div class="absolute bottom-4 left-40 inline-flex mt-3 ml-3 px-3 py-1 rounded-2xl z-10 bg-orange-300 text-sm font-medium text-orange-500 select-none">{{count($pendingreservations)}}</div>Pending Reservations
+            <div class="absolute bottom-4 left-40 inline-flex mt-3 ml-3 px-3 py-1 rounded-2xl z-10 bg-orange-300 text-sm font-medium text-orange-500 select-none">{{count($pendingreservations)}}</div>Pending Reservations
         </a>
     </div>
 
     <div class="flex ml-32 flex-wrap">
 
         @foreach ($events as $event)
+
+
+
+        <form class="hidden bg-violet-200 rounded-xl absolute top-[40%] left-[40%] transform -translate-x-[40%] -translate-y-[40%] z-50 justify-center items-center w-[32rem] px-3 h-[32rem] sm:fixed sm:top-[25%] sm:left-[32%] sm:transform-none sm:-translate-x-[30%] sm:-translate-y-[30%]" action="{{ route('organisateur.update',$event->id)}}" method="post" id="up-form" enctype="multipart/form-data">
+            @csrf
+            <div class="grid gap-4 mb-4 sm:grid-cols-2">
+                <input type="hidden" name="event_id" id="event_id" value="" />
+                 <div>
+                    <label for="Event_name" class="block mb-2 text-sm font-medium text-gray-900 ">Title</label>
+                    <input type="text" id="Event_name" name="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ">
+                </div>
+                <input type="hidden" value="{{$organizer->id}}" name="organisateur_id">
+
+                <select id="category_id" name="category_id" class="mt-5 inline-flex bg-violet-200 border border-gray-300 text-violet-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-60 p-2.5">
+                    <option></option>
+                    @foreach ($categories as $categorie)
+                    <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
+                    @endforeach
+                </select>
+                <div>
+                    <label for="description" class="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
+                    <input type="description" name="description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ">
+                </div>
+                <div>
+                    <label for="places_available" class="block mb-2 text-sm font-medium text-gray-900">Available tickets</label>
+                    <input type="number" name="places_available" id="places_available" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" min="0">
+                </div>
+
+                <div>
+                    <label for="location" class="block mb-2 text-sm font-medium text-gray-900 ">location</label>
+                    <input type="text" name="location" id="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ">
+                </div>
+                <div>
+                    <label for="date" class="block mb-2 text-sm font-medium text-gray-900 ">Date</label>
+                    <input type="datetime-local" name="date" id="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " min="{{ date('Y-m-d\TH:i') }}">
+                </div>
+                <div>
+                    <label for="picture" class="block mb-2 text-sm font-medium text-gray-900 ">Picture</label>
+                    <input type="file" name="picture" id="picture" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ">
+                </div>
+                <select name="type_of_reservation" class="mt-5 inline-flex bg-violet-200 border border-gray-300 text-violet-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-60 p-2.5">
+                    <option></option>
+                    <option value="manuelle">Manuelle</option>
+                    <option value="automatique">Automatique</option>
+                </select>
+
+                <button type="submit" class="text-white inline-flex items-center bg-violet-300 hover:bg-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                    <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+
+                        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd">
+                    </svg>
+                    Add
+                </button>
+                <button type="button" onclick="hideup()" class="text-white inline-flex items-center hover:bg-violet-300 bg-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                    <svg class="w-5 mt-1 mr-1 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 18 6m0 12L6 6" />
+                    </svg>cancel</button>
+            </div>
+        </form>
 
         <div class="relative mt-6 mx-6 w-96">
             <div class="relative inline-block duration-300 ease-in-out transition-transform transform hover:translate-y-0.5 w-full">
@@ -62,7 +121,7 @@
 
                     <!-- Grid for property details -->
                     <div class="grid grid-cols-2 grid-rows-2 gap-4 mt-8">
-                       <p class="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
+                        <p class="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
                             <svg class="w-5 h-5 mr-2 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11H4m15.5 5c.3 0 .5-.2.5-.5V8c0-.6-.4-1-1-1h-3.8a1 1 0 0 1-.8-.4L13 4.4a1 1 0 0 0-.8-.4H8a1 1 0 0 0-1 1M4 9v10c0 .6.4 1 1 1h11c.6 0 1-.4 1-1v-7c0-.6-.4-1-1-1h-3.8a1 1 0 0 1-.8-.4L10 8.4a1 1 0 0 0-.8-.4H5a1 1 0 0 0-1 1Z" />
                             </svg>
@@ -102,23 +161,23 @@
 
                     <!-- Price and view button -->
                     <div class="flex justify-between items-end mt-8">
-                        <button onclick="UpdateForm()" class="inline-flex items-center bg-yellow-300 px-6 py-2 rounded-lg text-yellow-600 font-semibold text-sm transition duration-300 ease-in-out transform hover:translate-y-0.5">
-                            Update
-                        </button>
+                <button onclick="UpdateForm('{{$event->id}}')" class="inline-flex items-center bg-yellow-300 px-6 py-2 rounded-lg text-yellow-600 font-semibold text-sm transition duration-300 ease-in-out transform hover:translate-y-0.5">
+                                            Update
+                                        </button>
                         @if ($event->accepted ==="online")
                         <div class="inline-flex items-center bg-green-300 px-6 py-2 rounded-lg text-green-600 font-semibold text-sm transition duration-300 ease-in-out transform hover:translate-y-0.5">
-                                                    {{$event->accepted}}
-                                                </div>
+                            {{$event->accepted}}
+                        </div>
                         @endif
                         @if ($event->accepted ==="rejected")
                         <div class="inline-flex items-center bg-red-300 px-6 py-2 rounded-lg text-red-600 font-semibold text-sm transition duration-300 ease-in-out transform hover:translate-y-0.5">
-                                                    {{$event->accepted}}
-                                                </div>
+                            {{$event->accepted}}
+                        </div>
                         @endif
                         @if ($event->accepted ==="pending")
                         <div class="inline-flex items-center bg-orange-300 px-6 py-2 rounded-lg text-orange-600 font-semibold text-sm transition duration-300 ease-in-out transform hover:translate-y-0.5">
-                                                    {{$event->accepted}}
-                                                </div>
+                            {{$event->accepted}}
+                        </div>
                         @endif
 
 
@@ -126,89 +185,38 @@
                 </div>
             </div>
         </div>
+
         @endforeach
     </div>
-    @if (isset($event) && $event != null)
 
 
-    <form class="hidden bg-violet-200 rounded-xl absolute top-[40%] left-[40%] transform -translate-x-[40%] -translate-y-[40%] z-50 justify-center items-center w-[32rem] px-3 h-[32rem] sm:fixed sm:top-[25%] sm:left-[32%] sm:transform-none sm:-translate-x-[30%] sm:-translate-y-[30%]" action="{{ route('organisateur.update', ['event' => $event->id]) }}" method="post" id="up-form" enctype="multipart/form-data">
-        @csrf
-        <div class="grid gap-4 mb-4 sm:grid-cols-2">
-            <div>
-                <label for="Event_id" class="block mb-2 text-sm font-medium text-gray-900 ">Title</label>
-                <input type="text" id="Event_name" name="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ">
-            </div>
-            <input type="hidden" value="{{$organizer->id}}" name="organisateur_id">
-
-            <select id="category_id" name="category_id" class="mt-5 inline-flex bg-violet-200 border border-gray-300 text-violet-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-60 p-2.5">
-                <option></option>
-                @foreach ($categories as $categorie)
-                <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
-                @endforeach
-            </select>
-            <div>
-                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
-                <input type="description" name="description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ">
-            </div>
-            <div>
-                <label for="places_available" class="block mb-2 text-sm font-medium text-gray-900 ">vailable tickets</label>
-                <input type="text" name="places_available" id="places_available" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ">
-            </div>
-            <div>
-                <label for="location" class="block mb-2 text-sm font-medium text-gray-900 ">location</label>
-                <input type="text" name="location" id="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ">
-            </div>
-            <div>
-                <label for="date" class="block mb-2 text-sm font-medium text-gray-900 ">Date</label>
-                <input type="datetime-local" name="date" id="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " min="{{ date('Y-m-d\TH:i') }}">
-            </div>
-            <div>
-                <label for="picture" class="block mb-2 text-sm font-medium text-gray-900 ">Picture</label>
-                <input type="file" name="picture" id="picture" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ">
-            </div>
-            <select name="type_of_reservation" class="mt-5 inline-flex bg-violet-200 border border-gray-300 text-violet-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-60 p-2.5">
-                <option></option>
-                <option value="manuelle">Manuelle</option>
-                <option value="automatique">Automatique</option>
-            </select>
-
-            <button type="submit" class="text-white inline-flex items-center bg-violet-300 hover:bg-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-
-                    <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd">
-                </svg>
-                Add
-            </button>
-            <button type="button" onclick="hideup()" class="text-white inline-flex items-center hover:bg-violet-300 bg-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                <svg class="w-5 mt-1 mr-1 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 18 6m0 12L6 6" />
-                </svg>cancel</button>
-        </div>
-    </form>
     <form class="hidden bg-violet-200 rounded-xl absolute top-[40%] left-[40%] transform -translate-x-[40%] -translate-y-[40%] z-50 justify-center items-center w-[32rem] px-3 h-[32rem] sm:fixed sm:top-[25%] sm:left-[32%] sm:transform-none sm:-translate-x-[30%] sm:-translate-y-[30%]" action="{{ route('organisateur.store') }}" method="post" id="res-form" enctype="multipart/form-data">
         @csrf
 
         <div class="grid gap-4 mb-4 sm:grid-cols-2">
             <div>
-                <label for="Event_id" class="block mb-2 text-sm font-medium text-gray-900 ">Title</label>
+                <label for="Event_name" class="block mb-2 text-sm font-medium text-gray-900 ">Title</label>
                 <input type="text" id="Event_name" name="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ">
             </div>
             <input type="hidden" value="{{$organizer->id}}" name="organisateur_id">
+            <div>
+            <label for="picture" class="block mb-2 text-sm font-medium text-gray-900 "></label>
 
             <select id="category_id" name="category_id" class="mt-5 inline-flex bg-violet-200 border border-gray-300 text-violet-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-60 p-2.5">
-                <option value="">Choose a Category</option>
+
                 @foreach ($categories as $categorie)
                 <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
                 @endforeach
             </select>
-            <div>
+          </div>
+           <div>
                 <label for="description" class="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
                 <input type="description" name="description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ">
             </div>
             <div>
                 <label for="places_available" class="block mb-2 text-sm font-medium text-gray-900 ">vailable tickets</label>
-                <input type="text" name="places_available" id="places_available" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ">
-            </div>
+                <input type="number" name="places_available" id="places_available" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" min="0">
+                </div>
             <div>
                 <label for="location" class="block mb-2 text-sm font-medium text-gray-900 ">location</label>
                 <input type="text" name="location" id="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ">
@@ -221,12 +229,14 @@
                 <label for="picture" class="block mb-2 text-sm font-medium text-gray-900 ">Picture</label>
                 <input type="file" name="picture" id="picture" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ">
             </div>
+            <div>
+            <label for="picture" class="block mb-2 text-sm font-medium text-gray-900 ">verifaction way</label>
+
             <select name="type_of_reservation" class="mt-5 inline-flex bg-violet-200 border border-gray-300 text-violet-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-60 p-2.5">
-                <option selected>Choose a Category</option>
                 <option value="manuelle">Manuelle</option>
                 <option value="automatique">Automatique</option>
             </select>
-
+            </div>
             <button type="submit" class="text-white inline-flex items-center bg-violet-300 hover:bg-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                 <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
 
@@ -240,45 +250,46 @@
                 </svg>cancel</button>
         </div>
     </form>
-    @endif
+
     <div class="flex justify-center mt-8">
         {{ $events->links('vendor.pagination.tailwind') }}
     </div>
+
+
+    <script>
+        function UpdateForm(eventId) {
+            document.getElementById('event_id').value = eventId;
+            document.getElementById('up-form').classList.remove('hidden');
+            document.getElementById('up-form').classList.add('flex');
+            document.getElementById('bg').classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+            // Show the form
+        }
+
+        function hideup() {
+            document.getElementById('up-form').classList.add('hidden');
+            document.getElementById('up-form').classList.remove('flex');
+            document.getElementById('bg').classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+
+
+
+        function showform() {
+
+            document.getElementById('res-form').classList.remove('hidden');
+            document.getElementById('res-form').classList.add('flex');
+            document.getElementById('bg').classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+
+
+        function hideform() {
+            document.getElementById('res-form').classList.add('hidden');
+            document.getElementById('res-form').classList.remove('flex');
+            document.getElementById('bg').classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+    </script>
 </x-app-layout>
-
-
-<script>
-    function UpdateForm() {
-        // Show the form
-        document.getElementById('up-form').classList.remove('hidden');
-        document.getElementById('up-form').classList.add('flex');
-        document.getElementById('bg').classList.remove('hidden');
-        document.body.classList.add('overflow-hidden');
-    }
-
-    function hideup() {
-        document.getElementById('up-form').classList.add('hidden');
-        document.getElementById('up-form').classList.remove('flex');
-        document.getElementById('bg').classList.add('hidden');
-        document.body.classList.remove('overflow-hidden');
-    }
-
-
-
-
-    function showform() {
-
-        document.getElementById('res-form').classList.remove('hidden');
-        document.getElementById('res-form').classList.add('flex');
-        document.getElementById('bg').classList.remove('hidden');
-        document.body.classList.add('overflow-hidden');
-    }
-
-
-    function hideform() {
-        document.getElementById('res-form').classList.add('hidden');
-        document.getElementById('res-form').classList.remove('flex');
-        document.getElementById('bg').classList.add('hidden');
-        document.body.classList.remove('overflow-hidden');
-    }
-</script>
